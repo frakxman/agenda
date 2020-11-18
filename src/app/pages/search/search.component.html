@@ -1,0 +1,52 @@
+<div class="container">
+    <h1 class="text-center"><i>Buscar Contacto</i></h1>
+    <hr>
+    <nav class="navbar navbar-expand">
+        
+        <div class="container-fluid">
+            <input type="text"
+                   class="form-control"
+                   placeholder="Buscar"
+                   name="filtercontact"
+                   [(ngModel)]="filtercontact">
+        </div>
+        
+    </nav>
+
+    <table class="table mt-3 animated fadeIn faster">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Nombre</th>
+                <th scope="col">Tel&eacute;fono</th>
+                <th scope="col">Nacimiento</th>
+                <th scope="col">Edad</th>
+                <th scope="col">Direcci&oacute;n</th>
+                <th scope="col">E-mail</th>
+                <th scope="col">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let contact of contacts | filter: filtercontact; let i = index">
+                <td>{{ contact.nombre }}</td>
+                <td>{{ contact.telefono }}</td>
+                <td>{{ contact.nacimiento }}</td>
+                <td>{{ contact.nacimiento | age }}</td>
+                <td>{{ contact.direccion }}</td>
+                <td>{{ contact.email }}</td>
+                <td>
+                    <button class="btn btn-info mr-1" 
+                            [routerLink]="['/contact', contact.id]">
+                        <i class="fa fa-pen"></i>
+                    </button>
+                    <button class="btn btn-danger" (click)="deleteContact( contact, i )">
+                        <i class="fa fa-trash"></i>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <button routerLink="/contacts" class="btn btn-danger btn-block">
+        <i class="fa fa-arrow-left"></i>
+        &nbsp;Regresar
+    </button>
+</div>

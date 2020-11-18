@@ -1,0 +1,67 @@
+<h1 class="text-center"><i>Agenda de Contactos</i></h1>
+<hr>
+
+<nav class="navbar navbar-expand">
+    <div class="container-fluid">
+        <button routerLink="/contact/new" class="btn btn-outline-success">
+            <i class="fa fa-user-plus"></i>
+            Nuevo Contacto
+        </button>
+        <div class="d-flex">
+            <button routerLink="/search" class="btn btn-outline-success" type="button">
+              <i class="fa fa-search"></i>
+              Buscar
+            </button>
+        </div>
+    </div>
+</nav>
+
+<table *ngIf="!loading && contacts.length > 0" class="table mt-3 animated fadeIn faster">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">Nombre</th>
+            <th scope="col">Tel&eacute;fono</th>
+            <th scope="col">Nacimiento</th>
+            <th scope="col">Edad</th>
+            <th scope="col">Direcci&oacute;n</th>
+            <th scope="col">E-mail</th>
+            <th scope="col">Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let contact of contacts; let i = index">
+            <td>{{ contact.nombre }}</td>
+            <td>{{ contact.telefono }}</td>
+            <td>{{ contact.nacimiento }}</td>
+            <td>{{ contact.nacimiento | age }}</td>
+            <td>{{ contact.direccion }}</td>
+            <td>{{ contact.email }}</td>
+            <td>
+                <button class="btn btn-info mr-1" 
+                        [routerLink]="['/contact', contact.id]">
+                    <i class="fa fa-pen"></i>
+                </button>
+                <button class="btn btn-danger" (click)="deleteContact( contact, i )">
+                    <i class="fa fa-trash"></i>
+                </button>
+            </td>
+        </tr>
+    </tbody>
+  </table>
+
+<div *ngIf="!loading && contacts.length === 0" class="alert alert-warning text-center mt-3 animated fadeIn faster">
+    <h4 class="alert-heading">No hay contactos</h4>
+    <p>
+        <i class="fa fa-exclamation fa-2x"></i>
+    </p>
+</div> 
+
+<div *ngIf="loading" class="alert alert-light text-center mt-3 animated fadeIn faster">
+    <h4 class="alert-heading">Cargando</h4>
+    <p>
+        <i class="fa fa-sync-alt fa-spin fa-2x"></i>
+    </p>
+    <p class="mb-0">
+        Espere por favor
+    </p>
+</div> 
